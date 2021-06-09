@@ -11039,7 +11039,7 @@ module.exports = function (content, workerConstructor, workerOptions, url) {
 
 /***/ }),
 
-/***/ 618:
+/***/ 549:
 /***/ ((__unused_webpack___webpack_module__, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 
@@ -19145,19 +19145,16 @@ class RaidEmulatorTimelineUI extends TimelineUI {
   }
 }
 
-;// CONCATENATED MODULE: ./ui/raidboss/emulator/overrides/StubbedPopupText.js
-
+;// CONCATENATED MODULE: ./ui/raidboss/emulator/overrides/StubbedPopupText.ts
 
 class StubbedPopupText extends PopupText {
-  constructor(options, timelineLoader, raidbossFileData) {
-    super(options, timelineLoader, raidbossFileData);
-  }
-
-  // Stubbed, we don't want overlay hooks
-  HookOverlays() { }
+    constructor(options, timelineLoader, raidbossFileData) {
+        super(options, timelineLoader, raidbossFileData);
+    }
+    HookOverlays() {
+        // Stubbed, we don't want overlay hooks
+    }
 }
-
-StubbedPopupText.globalTriggerSets = null;
 
 ;// CONCATENATED MODULE: ./ui/raidboss/emulator/data/PopupTextAnalysis.js
 
@@ -20538,7 +20535,7 @@ function hideModal(selector = '.modal.show') {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [890], () => (__webpack_require__(618)))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [890], () => (__webpack_require__(549)))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
