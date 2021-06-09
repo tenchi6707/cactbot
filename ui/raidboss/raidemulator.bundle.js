@@ -11039,7 +11039,7 @@ module.exports = function (content, workerConstructor, workerOptions, url) {
 
 /***/ }),
 
-/***/ 549:
+/***/ 954:
 /***/ ((__unused_webpack___webpack_module__, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 
@@ -19009,144 +19009,130 @@ class RaidEmulatorTimelineController extends TimelineController {
   }
 }
 
-;// CONCATENATED MODULE: ./ui/raidboss/emulator/overrides/RaidEmulatorTimelineUI.js
+;// CONCATENATED MODULE: ./ui/raidboss/emulator/overrides/RaidEmulatorTimelineUI.ts
+
 
 
 class RaidEmulatorTimelineUI extends TimelineUI {
-  constructor(options) {
-    super(options);
-    this.emulatedTimerBars = [];
-    this.emulatedStatus = 'pause';
-    this.$barContainer = document.querySelector('.timer-bar-container');
-    this.$progressTemplate = document.querySelector('template.progress').content.firstElementChild;
-  }
-
-  bindTo(emulator) {
-    emulator.on('tick', (currentLogTime, lastLogLineTime) => {
-      for (const i in this.emulatedTimerBars) {
-        const bar = this.emulatedTimerBars[i];
-        this.updateBar(bar, currentLogTime);
-      }
-      const toRemove = this.emulatedTimerBars
-        .filter((bar) => bar.forceRemoveAt <= currentLogTime);
-      for (const i in toRemove) {
-        const bar = toRemove[i];
-        bar.$progress.remove();
-      }
-      this.emulatedTimerBars = this.emulatedTimerBars.filter((bar) => {
-        return bar.forceRemoveAt > currentLogTime;
-      });
-      this.timeline && this.timeline.timebase && this.timeline._OnUpdateTimer(lastLogLineTime);
-    });
-    emulator.on('play', () => {
-      this.emulatedStatus = 'play';
-      this.timeline && this.timeline.emulatedSync(emulator.currentLogTime);
-    });
-    emulator.on('pause', () => {
-      this.emulatedStatus = 'pause';
-    });
-    let tmpPopupText;
-    emulator.on('preSeek', (time) => {
-      this.timeline && this.timeline.Stop();
-      for (const i in this.emulatedTimerBars) {
-        const bar = this.emulatedTimerBars[i];
-        bar.$progress.remove();
-      }
-      this.emulatedTimerBars = [];
-      this.timeline && (tmpPopupText = this.timeline.popupText);
-      this.timeline && (this.timeline.popupText = null);
-    });
-    emulator.on('postSeek', (currentLogTime) => {
-      this.timeline && (this.timeline.popupText = tmpPopupText);
-      this.timeline && this.timeline.emulatedSync(currentLogTime);
-      for (const i in this.emulatedTimerBars) {
-        const bar = this.emulatedTimerBars[i];
-        this.updateBar(bar, currentLogTime);
-      }
-    });
-    emulator.on('currentEncounterChanged', this.stop.bind(this));
-  }
-
-  stop() {
-    this.timeline && this.timeline.Stop();
-    for (const i in this.emulatedTimerBars) {
-      const bar = this.emulatedTimerBars[i];
-      bar.$progress.remove();
+    constructor(options) {
+        super(options);
+        this.emulatedTimerBars = [];
+        this.emulatedStatus = 'pause';
+        const container = document.querySelector('.timer-bar-container');
+        if (!(container instanceof HTMLElement))
+            throw new not_reached/* UnreachableCode */.$();
+        this.$barContainer = container;
+        const pTemplate = document.querySelector('template.progress');
+        if (!(pTemplate instanceof HTMLTemplateElement))
+            throw new not_reached/* UnreachableCode */.$();
+        if (!(pTemplate.content.firstElementChild instanceof HTMLElement))
+            throw new not_reached/* UnreachableCode */.$();
+        this.$progressTemplate = pTemplate.content.firstElementChild;
     }
-    this.emulatedTimerBars = [];
-  }
-
-  updateBar(bar, currentLogTime) {
-    const barElapsed = currentLogTime - bar.start;
-    let barProg = Math.min((barElapsed / bar.duration) * 100, 100);
-    if (bar.style === 'empty')
-      barProg = 100 - barProg;
-
-    let rightText = ((bar.duration - barElapsed) / 1000).toFixed(1);
-    if (barProg >= 100)
-      rightText = '';
-
-    bar.$leftLabel.textContent = bar.event.text;
-    bar.$rightLabel.textContent = rightText;
-    bar.$bar.ariaValueNow = barElapsed;
-    bar.$bar.style.width = barProg + '%';
-  }
-
-  // Override
-  Init() {
-    if (this.init)
-      return;
-    this.init = true;
-    this.timerlist = { clear: () => { } };
-
-    this.activeBars = {};
-    this.expireTimers = {};
-  }
-
-  // Override
-  AddDebugInstructions() {
-    this.debugElement = document.createElement('div');
-  }
-
-  // Override
-  OnAddTimer(fightNow, e, channeling) {
-    const end = this.timeline.timebase + (e.time * 1000);
-    const start = end - (this.options.ShowTimerBarsAtSeconds * 1000);
-    const $progress = this.$progressTemplate.cloneNode(true);
-    const bar = {
-      $progress: $progress,
-      $bar: $progress.querySelector('.progress-bar'),
-      $leftLabel: $progress.querySelector('.timer-bar-left-label'),
-      $rightLabel: $progress.querySelector('.timer-bar-right-label'),
-      start: start,
-      style: !channeling ? 'fill' : 'empty',
-      duration: (channeling ? e.time - fightNow : this.options.ShowTimerBarsAtSeconds) * 1000,
-      event: e,
-      forceRemoveAt: 0,
-    };
-
-    bar.forceRemoveAt = bar.start + bar.duration;
-
-    if (this.options.KeepExpiredTimerBarsForSeconds)
-      bar.forceRemoveAt += this.options.KeepExpiredTimerBarsForSeconds * 1000;
-
-    bar.$bar.ariaValueMax = bar.duration;
-    this.emulatedTimerBars.push(bar);
-    this.$barContainer.append(bar.$progress);
-    this.updateBar(bar);
-  }
-
-  // Override
-  OnRemoveTimer(e, expired) {
-    const bars = this.emulatedTimerBars.filter((bar) => bar.event.id === e.id);
-
-    bars.forEach((bar) => {
-      bar.forceRemoveAt = this.timeline.timebase;
-
-      if (expired && this.options.KeepExpiredTimerBarsForSeconds)
-        bar.forceRemoveAt += this.options.KeepExpiredTimerBarsForSeconds * 1000;
-    });
-  }
+    bindTo(emulator) {
+        emulator.on('tick', (currentLogTime, lastLogLineTime) => {
+            for (const bar of this.emulatedTimerBars)
+                this.updateBar(bar, currentLogTime);
+            const toRemove = this.emulatedTimerBars
+                .filter((bar) => bar.forceRemoveAt <= currentLogTime);
+            for (const bar of toRemove)
+                bar.$progress.remove();
+            this.emulatedTimerBars = this.emulatedTimerBars.filter((bar) => {
+                return bar.forceRemoveAt > currentLogTime;
+            });
+            this.timeline && this.timeline.timebase && this.timeline._OnUpdateTimer(lastLogLineTime);
+        });
+        emulator.on('play', () => {
+            this.emulatedStatus = 'play';
+            if (this.timeline instanceof RaidEmulatorTimeline)
+                this.timeline.emulatedSync(emulator.currentLogTime);
+        });
+        emulator.on('pause', () => {
+            this.emulatedStatus = 'pause';
+        });
+        emulator.on('preSeek', (_time) => {
+            this.timeline && this.timeline.Stop();
+            for (const bar of this.emulatedTimerBars)
+                bar.$progress.remove();
+            this.emulatedTimerBars = [];
+        });
+        emulator.on('postSeek', (currentLogTime) => {
+            if (this.timeline instanceof RaidEmulatorTimeline)
+                this.timeline.emulatedSync(currentLogTime);
+            for (const bar of this.emulatedTimerBars)
+                this.updateBar(bar, currentLogTime);
+        });
+        emulator.on('currentEncounterChanged', this.stop.bind(this));
+    }
+    stop() {
+        this.timeline && this.timeline.Stop();
+        for (const bar of this.emulatedTimerBars)
+            bar.$progress.remove();
+        this.emulatedTimerBars = [];
+    }
+    updateBar(bar, currentLogTime) {
+        const barElapsed = currentLogTime - bar.start;
+        let barProg = Math.min((barElapsed / bar.duration) * 100, 100);
+        if (bar.style === 'empty')
+            barProg = 100 - barProg;
+        let rightText = ((bar.duration - barElapsed) / 1000).toFixed(1);
+        if (barProg >= 100)
+            rightText = '';
+        bar.$leftLabel.textContent = bar.event.text;
+        bar.$rightLabel.textContent = rightText;
+        bar.$bar.style.width = `${barProg}%`;
+    }
+    Init() {
+        // This space intentionally left blank
+    }
+    AddDebugInstructions() {
+        // This space intentionally left blank
+    }
+    // Override
+    OnAddTimer(fightNow, e, channeling) {
+        if (!this.timeline)
+            throw new not_reached/* UnreachableCode */.$();
+        const end = this.timeline.timebase + (e.time * 1000);
+        const start = end - (this.options.ShowTimerBarsAtSeconds * 1000);
+        const $progress = this.$progressTemplate.cloneNode(true);
+        if (!($progress instanceof HTMLElement))
+            throw new not_reached/* UnreachableCode */.$();
+        const $progBar = $progress.querySelector('.progress-bar');
+        const $progLeft = $progress.querySelector('.timer-bar-left-label');
+        const $progRight = $progress.querySelector('.timer-bar-right-label');
+        if (!($progBar instanceof HTMLDivElement &&
+            $progLeft instanceof HTMLElement &&
+            $progRight instanceof HTMLElement))
+            throw new not_reached/* UnreachableCode */.$();
+        const bar = {
+            $progress: $progress,
+            $bar: $progBar,
+            $leftLabel: $progLeft,
+            $rightLabel: $progRight,
+            start: start,
+            style: !channeling ? 'fill' : 'empty',
+            duration: (channeling ? e.time - fightNow : this.options.ShowTimerBarsAtSeconds) * 1000,
+            event: e,
+            forceRemoveAt: 0,
+        };
+        bar.forceRemoveAt = bar.start + bar.duration;
+        if (this.options.KeepExpiredTimerBarsForSeconds)
+            bar.forceRemoveAt += this.options.KeepExpiredTimerBarsForSeconds * 1000;
+        this.emulatedTimerBars.push(bar);
+        this.$barContainer.append(bar.$progress);
+        this.updateBar(bar, bar.start);
+    }
+    // Override
+    OnRemoveTimer(e, expired) {
+        const bars = this.emulatedTimerBars.filter((bar) => bar.event.id === e.id);
+        bars.forEach((bar) => {
+            if (!this.timeline)
+                throw new not_reached/* UnreachableCode */.$();
+            bar.forceRemoveAt = this.timeline.timebase;
+            if (expired && this.options.KeepExpiredTimerBarsForSeconds)
+                bar.forceRemoveAt += this.options.KeepExpiredTimerBarsForSeconds * 1000;
+        });
+    }
 }
 
 ;// CONCATENATED MODULE: ./ui/raidboss/emulator/overrides/StubbedPopupText.ts
@@ -20539,7 +20525,7 @@ function hideModal(selector = '.modal.show') {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [890], () => (__webpack_require__(549)))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [890], () => (__webpack_require__(954)))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
