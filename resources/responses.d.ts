@@ -12,7 +12,7 @@ export declare const severityMap: {
 };
 export declare const Responses: {
     readonly tankBuster: (targetSev?: "info" | "alert" | "alarm" | undefined, otherSev?: "info" | "alert" | "alarm" | undefined) => (_data: unknown, _matches: unknown, output: Output) => TargetedResponseOutput;
-    readonly tankBusterSwap: (busterSev?: "info" | "alert" | "alarm" | undefined, swapSev?: "info" | "alert" | "alarm" | undefined) => (_data: Data, _matches: unknown, output: Output) => ResponseOutput<Data, import("../types/trigger").Matches<"sourceId" | "source" | "targetId" | "target">>;
+    readonly tankBusterSwap: (busterSev?: "info" | "alert" | "alarm" | undefined, swapSev?: "info" | "alert" | "alarm" | undefined) => (_data: Data, _matches: unknown, output: Output) => ResponseOutput<Data, import("../types/trigger").Matches<"target" | "sourceId" | "source" | "targetId">>;
     readonly tankCleave: (sev?: "info" | "alert" | "alarm" | undefined) => (_data: Data, _matches: unknown, output: Output) => {
         [x: string]: (data: Data, matches: TargetedMatches, output: Output) => string | undefined;
     };
@@ -30,7 +30,7 @@ export declare const Responses: {
     readonly spreadThenStack: (sev?: "info" | "alert" | "alarm" | undefined) => ResponseFunc<Data, unknown>;
     readonly stackThenSpread: (sev?: "info" | "alert" | "alarm" | undefined) => ResponseFunc<Data, unknown>;
     readonly knockback: (sev?: "info" | "alert" | "alarm" | undefined) => ResponseFunc<Data, unknown>;
-    readonly knockbackOn: (targetSev?: "info" | "alert" | "alarm" | undefined, otherSev?: "info" | "alert" | "alarm" | undefined) => (_data: Data, _matches: unknown, output: Output) => ResponseOutput<Data, import("../types/trigger").Matches<"sourceId" | "source" | "targetId" | "target">>;
+    readonly knockbackOn: (targetSev?: "info" | "alert" | "alarm" | undefined, otherSev?: "info" | "alert" | "alarm" | undefined) => (_data: Data, _matches: unknown, output: Output) => ResponseOutput<Data, import("../types/trigger").Matches<"target" | "sourceId" | "source" | "targetId">>;
     readonly lookTowards: (sev?: "info" | "alert" | "alarm" | undefined) => ResponseFunc<Data, unknown>;
     readonly lookAway: (sev?: "info" | "alert" | "alarm" | undefined) => ResponseFunc<Data, unknown>;
     readonly lookAwayFromTarget: (sev?: "info" | "alert" | "alarm" | undefined) => (_data: Data, _matches: unknown, output: Output) => {
@@ -68,7 +68,7 @@ export declare const Responses: {
     readonly interrupt: (sev?: "info" | "alert" | "alarm" | undefined) => (_data: Data, _matches: unknown, output: Output) => {
         [x: string]: (_data: Data, matches: TargetedMatches, output: Output) => string | undefined;
     };
-    readonly preyOn: (targetSev?: "info" | "alert" | "alarm" | undefined, otherSev?: "info" | "alert" | "alarm" | undefined) => (_data: Data, _matches: unknown, output: Output) => ResponseOutput<Data, import("../types/trigger").Matches<"sourceId" | "source" | "targetId" | "target">>;
+    readonly preyOn: (targetSev?: "info" | "alert" | "alarm" | undefined, otherSev?: "info" | "alert" | "alarm" | undefined) => (_data: Data, _matches: unknown, output: Output) => ResponseOutput<Data, import("../types/trigger").Matches<"target" | "sourceId" | "source" | "targetId">>;
     readonly awayFrom: (sev?: "info" | "alert" | "alarm" | undefined) => (_data: Data, _matches: unknown, output: Output) => {
         [x: string]: (data: Data, matches: TargetedMatches, output: Output) => string | undefined;
     };

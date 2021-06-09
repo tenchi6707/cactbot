@@ -1,6 +1,6 @@
 import { RaidbossOptions } from './raidboss_options';
-import { LogEvent } from 'types/event';
-import { LooseTimelineTrigger } from 'types/trigger';
+import { LogEvent } from '../../types/event';
+import { LooseTimelineTrigger } from '../../types/trigger';
 declare type Replacement = {
     locale: string;
     replaceSync: {
