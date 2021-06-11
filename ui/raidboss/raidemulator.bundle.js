@@ -18428,7 +18428,7 @@ class Timeline {
                 continue;
             }
             if (this.removeTimerCallback)
-                this.removeTimerCallback(event, false);
+                this.removeTimerCallback(event, false, true);
         }
         this.activeEvents = durationEvents;
     }
@@ -18753,8 +18753,8 @@ class TimelineUI {
         if (bar)
             bar.fg = this.barExpiresSoonColor;
     }
-    OnRemoveTimer(e, expired) {
-        if (expired && this.options.KeepExpiredTimerBarsForSeconds) {
+    OnRemoveTimer(e, expired, force = false) {
+        if (!force && expired && this.options.KeepExpiredTimerBarsForSeconds) {
             this.expireTimers[e.id] = window.setTimeout(this.OnRemoveTimer.bind(this, e, false), this.options.KeepExpiredTimerBarsForSeconds * 1000);
             return;
         }
@@ -18774,7 +18774,8 @@ class TimelineUI {
             (_a = div === null || div === void 0 ? void 0 : div.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(div);
             delete this.activeBars[e.id];
         };
-        element.classList.add('animate-timer-bar-removed');
+        if (!force)
+            element.classList.add('animate-timer-bar-removed');
         if (window.getComputedStyle(element).animationName !== 'none') {
             // Wait for animation to finish
             element.addEventListener('animationend', removeBar);

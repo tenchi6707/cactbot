@@ -98,7 +98,7 @@ export declare class Timeline {
     protected _ScheduleUpdate(fightNow: number): void;
     _OnUpdateTimer(currentTime: number): void;
     SetAddTimer(c: AddTimerCallback | null): void;
-    SetRemoveTimer(c: ((e: Event, expired: boolean) => void) | null): void;
+    SetRemoveTimer(c: ((e: Event, expired: boolean, force?: boolean) => void) | null): void;
     SetShowInfoText(c: PopupTextCallback | null): void;
     SetShowAlertText(c: PopupTextCallback | null): void;
     SetShowAlarmText(c: PopupTextCallback | null): void;
@@ -127,7 +127,7 @@ export declare class TimelineUI {
     SetTimeline(timeline: Timeline | null): void;
     protected OnAddTimer(fightNow: number, e: Event, channeling: boolean): void;
     private OnTimerExpiresSoon;
-    protected OnRemoveTimer(e: Event, expired: boolean): void;
+    protected OnRemoveTimer(e: Event, expired: boolean, force?: boolean): void;
     private OnShowInfoText;
     private OnShowAlertText;
     private OnShowAlarmText;
