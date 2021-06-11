@@ -2624,6 +2624,10 @@ class UserConfig {
             ParserLanguage: 'en',
             ShortLocale: 'en',
             DisplayLanguage: 'en',
+            TextAlertsEnabled: true,
+            SoundAlertsEnabled: true,
+            SpokenAlertsEnabled: false,
+            GroupSpokenAlertsEnabled: false,
         };
     }
     evalUserFile(content, options) {
@@ -13246,6 +13250,7 @@ class BrowserTTSEngine {
 ;// CONCATENATED MODULE: ./resources/player_override.ts
 
 
+// @TODO: Swap the order of these arguments, make playerName optional instead
 const addPlayerChangedOverrideListener = (playerName, func) => {
     if (!func)
         return;
@@ -15224,9 +15229,10 @@ class Timeline {
         for (const r of this.replacements) {
             if (r.locale && r.locale !== replaceLang)
                 continue;
-            if (!r[replaceKey])
+            const reps = r[replaceKey];
+            if (!reps)
                 continue;
-            for (const [key, value] of Object.entries(r[replaceKey]))
+            for (const [key, value] of Object.entries(reps))
                 text = text.replace(resources_regexes/* default.parse */.Z.parse(key), value);
         }
         // Common Replacements
