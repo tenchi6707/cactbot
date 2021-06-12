@@ -14068,6 +14068,7 @@ function setup(bars) {
 
   const goreBox = bars.addProcBox({
     fgColor: 'pld-color-gore',
+    notifyWhenExpired: true,
   });
 
   bars.onCombo((skill) => {
@@ -14140,6 +14141,7 @@ function war_setup(bars) {
 
   const eyeBox = bars.addProcBox({
     fgColor: 'war-color-eye',
+    notifyWhenExpired: true,
   });
 
   const comboTimer = bars.addTimerBar({
@@ -14435,6 +14437,7 @@ function whm_setup(bars) {
   const diaBox = bars.addProcBox({
     id: 'whm-procs-dia',
     fgColor: 'whm-color-dia',
+    notifyWhenExpired: true,
   });
   const assizeBox = bars.addProcBox({
     id: 'whm-procs-assize',
@@ -14543,6 +14546,7 @@ function sch_setup(bars) {
   const bioBox = bars.addProcBox({
     id: 'sch-procs-bio',
     fgColor: 'sch-color-bio',
+    notifyWhenExpired: true,
   });
 
   const aetherflowBox = bars.addProcBox({
@@ -14639,6 +14643,7 @@ function ast_setup(bars) {
   const combustBox = bars.addProcBox({
     id: 'ast-procs-combust',
     fgColor: 'ast-color-combust',
+    notifyWhenExpired: true,
   });
 
   const drawBox = bars.addProcBox({
@@ -14881,6 +14886,7 @@ function drg_setup(bars) {
   const disembowelBox = bars.addProcBox({
     id: 'drg-procs-disembowel',
     fgColor: 'drg-color-disembowel',
+    notifyWhenExpired: true,
   });
   bars.onCombo((skill) => {
     if (skill === kAbility.Disembowel) {
@@ -15167,6 +15173,7 @@ function sam_setup(bars) {
   const shifu = bars.addProcBox({
     id: 'sam-procs-shifu',
     fgColor: 'sam-color-shifu',
+    notifyWhenExpired: true,
   });
   bars.onYouGainEffect(effect_id.Shifu, (id, matches) => {
     shifu.duration = 0;
@@ -15181,6 +15188,7 @@ function sam_setup(bars) {
   const jinpu = bars.addProcBox({
     id: 'sam-procs-jinpu',
     fgColor: 'sam-color-jinpu',
+    notifyWhenExpired: true,
   });
   bars.onYouGainEffect(effect_id.Jinpu, (id, matches) => {
     jinpu.duration = 0;
@@ -15206,6 +15214,7 @@ function sam_setup(bars) {
   const higanbana = bars.addProcBox({
     id: 'sam-procs-higanbana',
     fgColor: 'sam-color-higanbana',
+    notifyWhenExpired: true,
   });
   bars.onMobGainsEffectFromYou(effect_id.Higanbana, () => {
     higanbana.duration = 0;
@@ -15259,10 +15268,12 @@ function brd_setup(bars) {
   const causticBiteBox = bars.addProcBox({
     id: 'brd-procs-causticbite',
     fgColor: 'brd-color-causticbite',
+    notifyWhenExpired: true,
   });
   const stormBiteBox = bars.addProcBox({
     id: 'brd-procs-stormbite',
     fgColor: 'brd-color-stormbite',
+    notifyWhenExpired: true,
   });
   // Iron jaws just refreshes these effects by gain once more,
   // so it doesn't need to be handled separately.
@@ -15721,6 +15732,7 @@ function blm_setup(bars) {
     id: 'blm-dot-thunder',
     fgColor: 'blm-color-dot',
     threshold: 4,
+    notifyWhenExpired: true,
   });
   const thunderProc = bars.addProcBox({
     id: 'blm-procs-thunder',
@@ -15881,11 +15893,13 @@ function smn_setup(bars) {
   const miasmaBox = bars.addProcBox({
     id: 'smn-procs-miasma',
     fgColor: 'smn-color-miasma',
+    notifyWhenExpired: true,
   });
 
   const bioSmnBox = bars.addProcBox({
     id: 'smn-procs-biosmn',
     fgColor: 'smn-color-biosmn',
+    notifyWhenExpired: true,
   });
 
   const energyDrainBox = bars.addProcBox({
@@ -16498,6 +16512,15 @@ user_config/* default.registerOptions */.Z.registerOptions('jobs', {
             },
             type: 'float',
             default: 0.8,
+        },
+        {
+            id: 'NotifyExpiredProcsInCombat',
+            name: {
+                en: 'Flash procs boxes of inactive dots/etc. up to n times while in combat. (-1: disabled, 0: infinite)',
+                de: 'Dot/etc. boxen blinken bis zu n mal wenn im Kampf und dot ist nicht aktiv. (-1: deaktiviert, 0: ohne Limit)',
+            },
+            type: 'integer',
+            default: -1,
         },
     ],
 });
@@ -17813,6 +17836,7 @@ class TimerBox extends HTMLElement {
         this._hideTimer = null;
         clearTimeout((_b = this._timer) !== null && _b !== void 0 ? _b : 0);
         this._timer = null;
+        this.classList.remove('expired');
         this._start = new Date().getTime();
         this.advance();
     }
@@ -17823,6 +17847,7 @@ class TimerBox extends HTMLElement {
             // Sets the attribute to 0 so users can see the counter is done, and
             // if they set the same duration again it will count.
             this._duration = 0;
+            this.classList.add('expired');
             if (this._hideAfter > 0)
                 this._hideTimer = window.setTimeout(this.hide.bind(this), this._hideAfter);
             else if (this._hideAfter === 0)
@@ -18637,6 +18662,16 @@ class Bars {
     this.contentType = 0;
     this.isPVPZone = false;
     this.crafting = false;
+
+    this.updateProcBoxNotifyRepeat();
+  }
+
+  updateProcBoxNotifyRepeat() {
+    if (this.options.NotifyExpiredProcsInCombat >= 0) {
+      const repeats = this.options.NotifyExpiredProcsInCombat === 0 ? 'infinite' : this.options.NotifyExpiredProcsInCombat;
+
+      document.documentElement.style.setProperty('--proc-box-notify-repeat', repeats);
+    }
   }
 
   get gcdSkill() {
@@ -18929,6 +18964,7 @@ class Bars {
     fgColor,
     threshold,
     scale,
+    notifyWhenExpired,
   }) {
     const elementId = this.job.toLowerCase() + '-procs';
 
@@ -18955,6 +18991,8 @@ class Bars {
       timerBox.id = id;
       timerBox.classList.add('timer-box');
     }
+    if (notifyWhenExpired)
+      timerBox.classList.add('notify-when-expired');
     return timerBox;
   }
 
@@ -19076,6 +19114,21 @@ class Bars {
       this.o.healthBar.fg = computeBackgroundColorFrom(this.o.healthBar, 'hp-color.mid');
     else
       this.o.healthBar.fg = computeBackgroundColorFrom(this.o.healthBar, 'hp-color');
+  }
+
+  _updateProcBoxNotifyState() {
+    if (this.options.NotifyExpiredProcsInCombat >= 0) {
+      const boxes = document.getElementsByClassName('proc-box');
+      for (const box of boxes) {
+        if (this.inCombat) {
+          box.classList.add('in-combat');
+          for (const child of box.children)
+            child.classList.remove('expired');
+        } else {
+          box.classList.remove('in-combat');
+        }
+      }
+    }
   }
 
   _updateMPTicker() {
@@ -19248,6 +19301,7 @@ class Bars {
     this._updateOpacity();
     this._updateFoodBuff();
     this._updateMPTicker();
+    this._updateProcBoxNotifyState();
   }
 
   _onChangeZone(e) {
@@ -19381,6 +19435,7 @@ class Bars {
       this._updateJob();
       // On reload, we need to set the opacity after setting up the job bars.
       this._updateOpacity();
+      this._updateProcBoxNotifyState();
       // Set up the buff tracker after the job bars are created.
       this.buffTracker = new BuffTracker(
           this.options, this.me, this.o.leftBuffsList, this.o.rightBuffsList, this.partyTracker);
