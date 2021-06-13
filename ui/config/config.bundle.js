@@ -12330,7 +12330,6 @@ const defaultRaidbossNonConfigOptions = {
     PerTriggerAutoConfig: {},
     PerTriggerOptions: {},
     Triggers: [],
-    PlayerNameOverride: null,
     IsRemoteRaidboss: false,
     TransformTts: (t) => t,
 };
