@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 54:
+/***/ 281:
 /***/ ((__unused_webpack___webpack_module__, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 
@@ -7791,228 +7791,218 @@ class StubbedPopupText extends PopupText {
     }
 }
 
-;// CONCATENATED MODULE: ./ui/raidboss/emulator/data/PopupTextAnalysis.js
-
+;// CONCATENATED MODULE: ./ui/raidboss/emulator/data/PopupTextAnalysis.ts
 
 
 class Resolver {
-  constructor() {
-    this.promise = null;
-    this.run = null;
-    this.delayUntil = null;
-    this.final = null;
-  }
-
-  async isResolved(log) {
-    if (this.delayUntil) {
-      if (this.delayUntil < log.timestamp) {
-        this.delayUntil = null;
-        this.delayResolver();
-        await this.delayPromise;
-      } else {
-        return false;
-      }
+    constructor(status) {
+        this.status = status;
     }
-
-    if (this.promise) await this.promise;
-    if (this.run) this.run();
-    if (this.final) this.final();
-    return true;
-  }
-
-  setDelay(delayUntil) {
-    this.delayUntil = delayUntil;
-    return this.delayPromise = new Promise(res => {
-      this.delayResolver = res;
-    });
-  }
-
-  setPromise(promise) {
-    this.promise = promise;
-  }
-
-  setRun(run) {
-    this.run = run;
-  }
-
-  setFinal(final) {
-    this.final = final;
-  }
-
-  setHelper(triggerHelper) {
-    this.triggerHelper = triggerHelper;
-  }
-
+    async isResolved(log) {
+        if (this.delayUntil) {
+            if (this.delayUntil < log.timestamp) {
+                delete this.delayUntil;
+                if (this.delayResolver)
+                    this.delayResolver();
+                await this.delayPromise;
+            }
+            else {
+                return false;
+            }
+        }
+        if (this.promise)
+            await this.promise;
+        if (this.run)
+            this.run();
+        if (this.final)
+            this.final();
+        return true;
+    }
+    setDelay(delayUntil) {
+        this.delayUntil = delayUntil;
+        return this.delayPromise = new Promise((res) => {
+            this.delayResolver = res;
+        });
+    }
+    setPromise(promise) {
+        this.promise = promise;
+    }
+    setRun(run) {
+        this.run = run;
+    }
+    setFinal(final) {
+        this.final = final;
+    }
+    setHelper(triggerHelper) {
+        this.triggerHelper = triggerHelper;
+    }
 }
-
 class PopupTextAnalysis extends StubbedPopupText {
-  constructor(options, timelineLoader, raidbossFileData) {
-    super(options, timelineLoader, raidbossFileData);
-    this.triggerResolvers = [];
-  } // Override `OnTrigger` so we can use our own exception handler
-
-
-  OnTrigger(trigger, matches, currentTime) {
-    try {
-      this.OnTriggerInternal(trigger, matches, currentTime);
-    } catch (e) {
-      console.log(trigger, e);
+    constructor() {
+        super(...arguments);
+        this.triggerResolvers = [];
     }
-  }
-
-  async OnLog(e) {
-    for (const logObj of e.detail.logs) {
-      const log = logObj.properCaseConvertedLine || logObj.convertedLine;
-      if (log.includes('00:0038:cactbot wipe')) this.SetInCombat(false);
-
-      for (const trigger of this.triggers) {
-        const r = log.match(trigger.localRegex);
-
-        if (r) {
-          const resolver = this.currentResolver = new Resolver();
-          resolver.status = {
-            initialData: EmulatorCommon_EmulatorCommon.cloneData(this.data),
-            condition: undefined,
-            response: false,
-            result: false,
-            delay: false,
-            suppressed: false,
-            executed: false,
-            promise: undefined
-          };
-          this.triggerResolvers.push(resolver);
-          this.OnTrigger(trigger, r, logObj.timestamp);
-          resolver.setFinal(() => {
-            resolver.status.finalData = EmulatorCommon_EmulatorCommon.cloneData(this.data);
-            delete resolver.triggerHelper.resolver;
-            this.callback(logObj, resolver.triggerHelper, resolver.status, this.data);
-          });
+    // Override `OnTrigger` so we can use our own exception handler
+    OnTrigger(trigger, matches, currentTime) {
+        try {
+            this.OnTriggerInternal(trigger, matches, currentTime);
         }
-      }
-
-      await this.checkResolved(logObj);
-    }
-  }
-
-  async OnNetLog(e) {
-    for (const logObj of e.detail.logs) {
-      const log = logObj.networkLine;
-
-      for (const trigger of this.netTriggers) {
-        const r = log.match(trigger.localNetRegex);
-
-        if (r) {
-          const resolver = this.currentResolver = new Resolver();
-          resolver.status = {
-            initialData: EmulatorCommon_EmulatorCommon.cloneData(this.data),
-            condition: undefined,
-            response: false,
-            result: false,
-            delay: false,
-            suppressed: false,
-            executed: false,
-            promise: undefined
-          };
-          this.triggerResolvers.push(resolver);
-
-          this._onTriggerInternalGetHelper(trigger, r, logObj.timestamp);
-
-          this.OnTrigger(trigger, r, logObj.timestamp);
-          resolver.setFinal(() => {
-            resolver.status.finalData = EmulatorCommon_EmulatorCommon.cloneData(this.data);
-            delete resolver.triggerHelper.resolver;
-            this.callback(logObj, resolver.triggerHelper, resolver.status, this.data);
-          });
+        catch (e) {
+            console.log(trigger, e);
         }
-      }
-
-      await this.checkResolved(logObj);
     }
-  }
-
-  async checkResolved(logObj) {
-    await Promise.all(this.triggerResolvers.map(async resolver => await resolver.isResolved(logObj))).then(results => {
-      this.triggerResolvers = this.triggerResolvers.filter((_, index) => !results[index]);
-    });
-  }
-
-  _onTriggerInternalCondition(triggerHelper) {
-    const ret = super._onTriggerInternalCondition(triggerHelper);
-
-    triggerHelper.resolver.status.condition = ret;
-    return ret;
-  }
-
-  _onTriggerInternalDelaySeconds(triggerHelper) {
-    // Can't inherit the default logic for delay since we don't
-    // want to delay for mass processing of the timeline
-    const delay = 'delaySeconds' in triggerHelper.trigger ? triggerHelper.valueOrFunction(triggerHelper.trigger.delaySeconds) : 0;
-    triggerHelper.resolver.status.delay = delay;
-    if (!delay || delay <= 0) return null;
-    return triggerHelper.resolver.setDelay(triggerHelper.now + delay * 1000);
-  }
-
-  _onTriggerInternalPromise(triggerHelper) {
-    const ret = super._onTriggerInternalPromise(triggerHelper);
-
-    triggerHelper.resolver.status.promise = ret;
-    if (!ret) return ret;
-    return triggerHelper.resolver.setPromise(ret);
-  }
-
-  _onTriggerInternalTTS(triggerHelper) {
-    super._onTriggerInternalTTS(triggerHelper);
-
-    if (triggerHelper.ttsText !== undefined && triggerHelper.resolver.status.responseType === undefined) {
-      triggerHelper.resolver.status.responseType = 'tts';
-      triggerHelper.resolver.status.responseLabel = triggerHelper.ttsText;
+    async OnLog(e) {
+        var _a, _b;
+        for (const logObj of e.detail.logs) {
+            const log = (_a = logObj.properCaseConvertedLine) !== null && _a !== void 0 ? _a : logObj.convertedLine;
+            if (log.includes('00:0038:cactbot wipe'))
+                this.SetInCombat(false);
+            for (const trigger of this.triggers) {
+                const r = (_b = trigger.localRegex) === null || _b === void 0 ? void 0 : _b.exec(log);
+                if (!r)
+                    continue;
+                const resolver = this.currentResolver = new Resolver({
+                    initialData: EmulatorCommon_EmulatorCommon.cloneData(this.data),
+                    suppressed: false,
+                    executed: false,
+                });
+                this.triggerResolvers.push(resolver);
+                this.OnTrigger(trigger, r, logObj.timestamp);
+                resolver.setFinal(() => {
+                    var _a;
+                    resolver.status.finalData = EmulatorCommon_EmulatorCommon.cloneData(this.data);
+                    (_a = resolver.triggerHelper) === null || _a === void 0 ? true : delete _a.resolver;
+                    if (this.callback)
+                        this.callback(logObj, resolver.triggerHelper, resolver.status, this.data);
+                });
+            }
+            await this.checkResolved(logObj);
+        }
     }
-  }
-
-  _onTriggerInternalRun(triggerHelper) {
-    triggerHelper.resolver.setRun(() => {
-      triggerHelper.resolver.status.executed = true;
-
-      super._onTriggerInternalRun(triggerHelper);
-    });
-  }
-
-  _makeTextElement(triggerHelper, text, className) {
-    triggerHelper.resolver.status.result = triggerHelper.resolver.status.result || text;
-    return null;
-  }
-
-  _createTextFor(triggerHelper, text, textType, lowerTextKey, duration) {
-    // No-op for functionality, but store off this info for feedback
-    triggerHelper.resolver.status.responseType = textType;
-    triggerHelper.resolver.status.responseLabel = text;
-  }
-
-  _playAudioFile(triggerHelper, url, volume) {
-    // No-op for functionality, but store off this info for feedback
-    // If we already have text and this is a default alert sound, don't override that info
-    if (triggerHelper.resolver.status.responseType) {
-      if (triggerHelper.resolver.status.responseType === 'info' && url === this.options.InfoSound) return;
-      if (triggerHelper.resolver.status.responseType === 'alert' && url === this.options.AlertSound) return;
-      if (triggerHelper.resolver.status.responseType === 'alarm' && url === this.options.AlarmSound) return;
+    async OnNetLog(e) {
+        var _a, _b;
+        for (const logObj of e.detail.logs) {
+            const log = logObj.networkLine;
+            for (const trigger of this.netTriggers) {
+                const r = (_a = trigger.localNetRegex) === null || _a === void 0 ? void 0 : _a.exec(log);
+                if (r) {
+                    const resolver = this.currentResolver = new Resolver({
+                        initialData: EmulatorCommon_EmulatorCommon.cloneData(this.data),
+                        suppressed: false,
+                        executed: false,
+                    });
+                    this.triggerResolvers.push(resolver);
+                    const matches = (_b = r.groups) !== null && _b !== void 0 ? _b : {};
+                    this._onTriggerInternalGetHelper(trigger, matches, logObj.timestamp);
+                    this.OnTrigger(trigger, r, logObj.timestamp);
+                    resolver.setFinal(() => {
+                        var _a;
+                        resolver.status.finalData = EmulatorCommon_EmulatorCommon.cloneData(this.data);
+                        (_a = resolver.triggerHelper) === null || _a === void 0 ? true : delete _a.resolver;
+                        if (this.callback)
+                            this.callback(logObj, resolver.triggerHelper, resolver.status, this.data);
+                    });
+                }
+            }
+            await this.checkResolved(logObj);
+        }
     }
-
-    triggerHelper.resolver.status.responseType = 'audiofile';
-    triggerHelper.resolver.status.responseLabel = url;
-  }
-
-  _scheduleRemoveText(container, e, delay) {// No-op
-  }
-
-  _onTriggerInternalGetHelper(trigger, matches, now) {
-    const ret = super._onTriggerInternalGetHelper(trigger, matches, now);
-
-    ret.resolver = this.currentResolver;
-    ret.resolver.setHelper(ret);
-    return ret;
-  }
-
+    async checkResolved(logObj) {
+        await Promise.all(this.triggerResolvers.map(async (resolver) => await resolver.isResolved(logObj)))
+            .then((results) => {
+            this.triggerResolvers = this.triggerResolvers.filter((_, index) => !results[index]);
+        });
+    }
+    _onTriggerInternalCondition(triggerHelper) {
+        const ret = super._onTriggerInternalCondition(triggerHelper);
+        if (triggerHelper.resolver)
+            triggerHelper.resolver.status.condition = ret;
+        return ret;
+    }
+    _onTriggerInternalDelaySeconds(triggerHelper) {
+        var _a;
+        // Can't inherit the default logic for delay since we don't
+        // want to delay for mass processing of the timeline
+        const delay = 'delaySeconds' in triggerHelper.trigger ? triggerHelper.valueOrFunction(triggerHelper.trigger.delaySeconds) : 0;
+        if (typeof delay === 'number') {
+            if (triggerHelper.resolver)
+                triggerHelper.resolver.status.delay = delay;
+            if (!delay || delay <= 0)
+                return;
+            return (_a = triggerHelper.resolver) === null || _a === void 0 ? void 0 : _a.setDelay(triggerHelper.now + (delay * 1000));
+        }
+    }
+    _onTriggerInternalPromise(triggerHelper) {
+        const ret = super._onTriggerInternalPromise(triggerHelper);
+        if (triggerHelper.resolver)
+            triggerHelper.resolver.status.promise = ret;
+        if (!ret)
+            return ret;
+        if (triggerHelper.resolver)
+            triggerHelper.resolver.setPromise(ret);
+        return;
+    }
+    _onTriggerInternalTTS(triggerHelper) {
+        super._onTriggerInternalTTS(triggerHelper);
+        if (triggerHelper.ttsText !== undefined &&
+            triggerHelper.resolver &&
+            triggerHelper.resolver.status.responseType === undefined) {
+            triggerHelper.resolver.status.responseType = 'tts';
+            triggerHelper.resolver.status.responseLabel = triggerHelper.ttsText;
+        }
+    }
+    _onTriggerInternalRun(triggerHelper) {
+        var _a;
+        (_a = triggerHelper.resolver) === null || _a === void 0 ? void 0 : _a.setRun(() => {
+            if (triggerHelper.resolver)
+                triggerHelper.resolver.status.executed = true;
+            super._onTriggerInternalRun(triggerHelper);
+        });
+    }
+    _makeTextElement(triggerHelper, text, _className) {
+        var _a;
+        var _b;
+        if (triggerHelper.resolver)
+            (_a = (_b = triggerHelper.resolver.status).result) !== null && _a !== void 0 ? _a : (_b.result = text);
+        return document.createElement('div');
+    }
+    _createTextFor(triggerHelper, text, textType, _lowerTextKey, _duration) {
+        // No-op for functionality, but store off this info for feedback
+        if (triggerHelper.resolver) {
+            triggerHelper.resolver.status.responseType = textType;
+            triggerHelper.resolver.status.responseLabel = text;
+        }
+    }
+    _playAudioFile(triggerHelper, url, _volume) {
+        // No-op for functionality, but store off this info for feedback
+        if (triggerHelper.resolver) {
+            // If we already have text and this is a default alert sound, don't override that info
+            if (triggerHelper.resolver.status.responseType) {
+                if (triggerHelper.resolver.status.responseType === 'info' &&
+                    url === this.options.InfoSound)
+                    return;
+                if (triggerHelper.resolver.status.responseType === 'alert' &&
+                    url === this.options.AlertSound)
+                    return;
+                if (triggerHelper.resolver.status.responseType === 'alarm' &&
+                    url === this.options.AlarmSound)
+                    return;
+            }
+            triggerHelper.resolver.status.responseType = 'audiofile';
+            triggerHelper.resolver.status.responseLabel = url;
+        }
+    }
+    _onTriggerInternalGetHelper(trigger, matches, now) {
+        var _a;
+        const ret = {
+            ...super._onTriggerInternalGetHelper(trigger, matches, now),
+        };
+        ret.resolver = this.currentResolver;
+        (_a = ret.resolver) === null || _a === void 0 ? void 0 : _a.setHelper(ret);
+        return ret;
+    }
 }
+
 ;// CONCATENATED MODULE: ./ui/raidboss/emulator/overrides/RaidEmulatorTimelineUI.ts
 
 
@@ -20282,7 +20272,7 @@ module.exports = function (content, workerConstructor, workerOptions, url) {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [890], () => (__webpack_require__(54)))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [890], () => (__webpack_require__(281)))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
