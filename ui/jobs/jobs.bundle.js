@@ -14223,27 +14223,27 @@ const drk_setup = (bars) => {
         threshold: 10,
     });
     bars.onJobDetailUpdate((jobDetail) => {
-        var _a, _b;
+        var _a;
         const blood = jobDetail.blood;
-        if (bloodBox.innerText === blood.toString())
-            return;
-        bloodBox.innerText = blood.toString();
-        const p = bloodBox.parentNode;
-        if (blood < 50) {
-            p.classList.add('low');
-            p.classList.remove('mid');
-        }
-        else if (blood < 90) {
-            p.classList.remove('low');
-            p.classList.add('mid');
-        }
-        else {
-            p.classList.remove('low');
-            p.classList.remove('mid');
+        if (bloodBox.innerText !== blood.toString()) {
+            bloodBox.innerText = blood.toString();
+            const p = bloodBox.parentNode;
+            if (blood < 50) {
+                p.classList.add('low');
+                p.classList.remove('mid');
+            }
+            else if (blood < 90) {
+                p.classList.remove('low');
+                p.classList.add('mid');
+            }
+            else {
+                p.classList.remove('low');
+                p.classList.remove('mid');
+            }
         }
         const oldSeconds = parseFloat((_a = darksideBox.duration) !== null && _a !== void 0 ? _a : '0') - parseFloat(darksideBox.elapsed);
         const seconds = jobDetail.darksideMilliseconds / 1000.0;
-        if ((_b = !darksideBox.duration) !== null && _b !== void 0 ? _b : seconds > oldSeconds) {
+        if (!darksideBox.duration || seconds > oldSeconds) {
             darksideBox.duration = '0';
             darksideBox.duration = seconds.toString();
         }
