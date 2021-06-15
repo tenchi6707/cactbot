@@ -13329,18 +13329,18 @@ var not_reached = __webpack_require__(500);
 
 
 
+const isRaidbossLooseTimelineTrigger = (trigger) => {
+    return 'isTimelineTrigger' in trigger;
+};
 const isNetRegexTrigger = (trigger) => {
-    if (trigger)
+    if (trigger && !isRaidbossLooseTimelineTrigger(trigger))
         return 'netRegex' in trigger;
     return false;
 };
 const isRegexTrigger = (trigger) => {
-    if (trigger)
+    if (trigger && !isRaidbossLooseTimelineTrigger(trigger))
         return 'regex' in trigger;
     return false;
-};
-const isRaidbossLooseTimelineTrigger = (trigger) => {
-    return 'isTimelineTrigger' in trigger;
 };
 // There should be (at most) six lines of instructions.
 const raidbossInstructions = {
