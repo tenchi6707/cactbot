@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 395:
+/***/ 650:
 /***/ ((__unused_webpack___webpack_module__, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 
@@ -7763,50 +7763,56 @@ class RaidEmulatorTimeline extends Timeline {
     }
 }
 
-;// CONCATENATED MODULE: ./ui/raidboss/emulator/overrides/RaidEmulatorTimelineController.js
+;// CONCATENATED MODULE: ./ui/raidboss/emulator/overrides/RaidEmulatorTimelineController.ts
 
 
 class RaidEmulatorTimelineController extends TimelineController {
-  bindTo(emulator) {
-    this.emulator = emulator;
-    if (this.activeTimeline) this.activeTimeline.bindTo(emulator);
-  } // Override
-
-
-  SetActiveTimeline(timelineFiles, timelines, replacements, triggers, styles) {
-    this.activeTimeline = null;
-    let text = ''; // Get the text from each file in |timelineFiles|.
-
-    for (let i = 0; i < timelineFiles.length; ++i) {
-      const name = timelineFiles[i];
-      if (name in this.timelines) text = text + '\n' + this.timelines[name];else console.warn('Timeline file not found: ' + name);
-    } // Append text from each block in |timelines|.
-
-
-    for (let i = 0; i < timelines.length; ++i) text = text + '\n' + timelines[i];
-
-    if (text) {
-      this.activeTimeline = new RaidEmulatorTimeline(text, replacements, triggers, styles, this.options);
-      if (this.emulator) this.activeTimeline.bindTo(this.emulator);
+    constructor() {
+        super(...arguments);
+        this.activeTimeline = null;
     }
-
-    this.ui.SetTimeline(this.activeTimeline);
-  } // Override
-
-
-  OnLogEvent(e) {
-    if (!this.activeTimeline) return;
-    e.detail.logs.forEach(line => {
-      this.activeTimeline.emulatedTimeOffset = line.offset;
-      this.ui.emulatedTimeOffset = line.offset;
-      this.activeTimeline.OnLogLine(line.properCaseConvertedLine || line.convertedLine, line.timestamp); // Only call _OnUpdateTimer if we have a timebase from the previous call to OnLogLine
-      // This avoids spamming the console with a ton of messages
-
-      if (this.activeTimeline.timebase) this.activeTimeline._OnUpdateTimer(line.timestamp);
-    });
-  }
-
+    bindTo(emulator) {
+        this.emulator = emulator;
+        if (this.activeTimeline)
+            this.activeTimeline.bindTo(emulator);
+    }
+    // Override
+    SetActiveTimeline(timelineFiles, timelines, replacements, triggers, styles) {
+        this.activeTimeline = null;
+        let text = '';
+        // Get the text from each file in |timelineFiles|.
+        for (const timelineFile of timelineFiles) {
+            const name = this.timelines[timelineFile];
+            if (name)
+                text = `${text}\n${name}`;
+            else
+                console.log(`Timeline file not found: ${timelineFile}`);
+        }
+        // Append text from each block in |timelines|.
+        for (const timeline of timelines)
+            text = `${text}\n${timeline}`;
+        if (text) {
+            this.activeTimeline =
+                new RaidEmulatorTimeline(text, replacements, triggers, styles, this.options);
+            if (this.emulator)
+                this.activeTimeline.bindTo(this.emulator);
+        }
+        this.ui.SetTimeline(this.activeTimeline);
+    }
+    // Override
+    OnLogEvent(e) {
+        if (!this.activeTimeline)
+            return;
+        for (const line of e.detail.logs) {
+            this.activeTimeline.OnLogLine(line.properCaseConvertedLine || line.convertedLine, line.timestamp);
+            // Only call _OnUpdateTimer if we have a timebase from the previous call to OnLogLine
+            // This avoids spamming the console with a ton of messages
+            if (this.activeTimeline.timebase)
+                this.activeTimeline._OnUpdateTimer(line.timestamp);
+        }
+    }
 }
+
 ;// CONCATENATED MODULE: ./ui/raidboss/emulator/overrides/StubbedPopupText.ts
 
 class StubbedPopupText extends PopupText {
@@ -20303,7 +20309,7 @@ module.exports = function (content, workerConstructor, workerOptions, url) {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [890], () => (__webpack_require__(395)))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [890], () => (__webpack_require__(650)))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
