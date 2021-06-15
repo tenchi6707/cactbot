@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 650:
+/***/ 838:
 /***/ ((__unused_webpack___webpack_module__, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 
@@ -8162,24 +8162,25 @@ class RaidEmulatorTimelineUI extends TimelineUI {
     }
 }
 
-;// CONCATENATED MODULE: ./ui/raidboss/emulator/overrides/RaidEmulatorAnalysisTimelineUI.js
+;// CONCATENATED MODULE: ./ui/raidboss/emulator/overrides/RaidEmulatorAnalysisTimelineUI.ts
 
 class RaidEmulatorAnalysisTimelineUI extends RaidEmulatorTimelineUI {
-  constructor(options) {
-    super(options);
-    this.$barContainer = document.createElement('div');
-    this.$progressTemplate = document.querySelector('template.progress').content.firstElementChild;
-  } // Stub out these methods for performance
-
-
-  updateBar(bar, currentLogTime) {}
-
-  OnAddTimer(fightNow, e, channeling) {} // Override
-
-
-  OnRemoveTimer(e, expired) {}
-
+    constructor(options) {
+        super(options);
+        // Use orphaned child div to prevent DOM updates
+        this.$barContainer = document.createElement('div');
+    }
+    updateBar(_bar, _currentLogTime) {
+        // Stubbed out for performance
+    }
+    OnAddTimer(_fightNow, _e, _channeling) {
+        // Stubbed out for performance
+    }
+    OnRemoveTimer(_e, _expired) {
+        // Stubbed out for performance
+    }
 }
+
 ;// CONCATENATED MODULE: ./ui/raidboss/emulator/data/AnalyzedEncounter.js
 
 
@@ -20309,7 +20310,7 @@ module.exports = function (content, workerConstructor, workerOptions, url) {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [890], () => (__webpack_require__(650)))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [890], () => (__webpack_require__(838)))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
