@@ -5322,9 +5322,14 @@ class TriggerOutputProxy {
         var _a;
         if (!template)
             return;
-        const value = (_a = template[this.displayLang]) !== null && _a !== void 0 ? _a : template['en'];
+        let value;
+        if (typeof template === 'string')
+            // user config
+            value = template;
+        else
+            value = (_a = template[this.displayLang]) !== null && _a !== void 0 ? _a : template['en'];
         if (typeof value !== 'string') {
-            console.error(`Trigger ${id} has invalid outputString ${name}.`);
+            console.error(`Trigger ${id} has invalid outputString ${name}.`, JSON.stringify(template));
             return;
         }
         return value.replace(/\${\s*([^}\s]+)\s*}/g, (_fullMatch, key) => {
