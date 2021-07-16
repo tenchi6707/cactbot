@@ -11989,8 +11989,8 @@ class DamageTracker {
     }
 }
 
-// EXTERNAL MODULE: ./ui/oopsyraidsy/data/oopsy_manifest.txt + 96 modules
-var oopsy_manifest = __webpack_require__(7156);
+// EXTERNAL MODULE: ./ui/oopsyraidsy/data/oopsy_manifest.txt + 97 modules
+var oopsy_manifest = __webpack_require__(4234);
 ;// CONCATENATED MODULE: ./ui/oopsyraidsy/mistake_collector.ts
 
 const kEarlyPullText = {
