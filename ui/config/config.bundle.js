@@ -12495,8 +12495,8 @@ const generateBuffTriggers = () => {
     };
   });
 };
-// EXTERNAL MODULE: ./ui/oopsyraidsy/data/oopsy_manifest.txt + 134 modules
-var oopsy_manifest = __webpack_require__(5087);
+// EXTERNAL MODULE: ./ui/oopsyraidsy/data/oopsy_manifest.txt + 135 modules
+var oopsy_manifest = __webpack_require__(3550);
 ;// CONCATENATED MODULE: ./ui/oopsyraidsy/oopsyraidsy_config.js
 
 
@@ -12989,8 +12989,8 @@ class PartyTracker {
 }
 // EXTERNAL MODULE: ./resources/responses.ts
 var responses = __webpack_require__(7469);
-// EXTERNAL MODULE: ./ui/raidboss/data/raidboss_manifest.txt + 347 modules
-var raidboss_manifest = __webpack_require__(8714);
+// EXTERNAL MODULE: ./ui/raidboss/data/raidboss_manifest.txt + 348 modules
+var raidboss_manifest = __webpack_require__(277);
 ;// CONCATENATED MODULE: ./ui/raidboss/raidboss_options.ts
 
 // These options are ones that are not auto-defined by raidboss_config.js.
