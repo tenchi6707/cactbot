@@ -12495,8 +12495,8 @@ const generateBuffTriggers = () => {
     };
   });
 };
-// EXTERNAL MODULE: ./ui/oopsyraidsy/data/oopsy_manifest.txt + 126 modules
-var oopsy_manifest = __webpack_require__(4809);
+// EXTERNAL MODULE: ./ui/oopsyraidsy/data/oopsy_manifest.txt + 127 modules
+var oopsy_manifest = __webpack_require__(9103);
 ;// CONCATENATED MODULE: ./ui/oopsyraidsy/oopsyraidsy_config.js
 
 
