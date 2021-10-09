@@ -175,7 +175,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '5625', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '5625', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '5625', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '5625', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '5625', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '5625', source: '어둠의 구름', capture: false }),
             durationSeconds: 5,
             response: Responses.aoe(),
@@ -187,7 +187,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: ['5B45', '55FB'], source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: ['5B45', '55FB'], source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: ['5B45', '55FB'], source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: ['5B45', '55FB'], source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: ['5B45', '55FB'], source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: ['5B45', '55FB'], source: '어둠의 구름', capture: false }),
             durationSeconds: (data) => data.phase === 'empty' ? 8 : 4,
             alertText: (_data, _matches, output) => output.text(),
@@ -200,7 +200,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: ['5B46', '55FE'], source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: ['5B46', '55FE'], source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: ['5B46', '55FE'], source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: ['5B46', '55FE'], source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: ['5B46', '55FE'], source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: ['5B46', '55FE'], source: '어둠의 구름', capture: false }),
             durationSeconds: (data) => data.phase === 'empty' ? 8 : 4,
             alertText: (_data, _matches, output) => output.text(),
@@ -213,7 +213,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '5623', source: 'Wolke Der Dunkelheit' }),
             netRegexFr: NetRegexes.startsUsing({ id: '5623', source: 'Nuage De Ténèbres' }),
             netRegexJa: NetRegexes.startsUsing({ id: '5623', source: '暗闇の雲' }),
-            netRegexCn: NetRegexes.startsUsing({ id: '5623', source: '暗黑之云' }),
+            netRegexCn: NetRegexes.startsUsing({ id: '5623', source: '暗黑之雲' }),
             netRegexKo: NetRegexes.startsUsing({ id: '5623', source: '어둠의 구름' }),
             durationSeconds: 4,
             alertText: (data, matches, output) => {
@@ -249,7 +249,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '55EE', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '55EE', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '55EE', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '55EE', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '55EE', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '55EE', source: '어둠의 구름', capture: false }),
             durationSeconds: 5,
             response: Responses.aoe(),
@@ -261,7 +261,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '5907', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '5907', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '5907', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '5907', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '5907', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '5907', source: '어둠의 구름', capture: false }),
             delaySeconds: 3,
             infoText: (_data, _matches, output) => output.text(),
@@ -283,7 +283,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '5617', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '5617', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '5617', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '5617', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '5617', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '5617', source: '어둠의 구름', capture: false }),
             response: Responses.knockback(),
         },
@@ -294,7 +294,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '5618', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '5618', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '5618', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '5618', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '5618', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '5618', source: '어둠의 구름', capture: false }),
             durationSeconds: 5,
             infoText: (_data, _matches, output) => output.text(),
@@ -324,7 +324,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '561[23]', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '561[23]', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '561[23]', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '561[23]', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '561[23]', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '561[23]', source: '어둠의 구름', capture: false }),
             preRun: (data) => {
                 if (data.role === 'tank')
@@ -348,7 +348,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '561[23]', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '561[23]', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '561[23]', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '561[23]', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '561[23]', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '561[23]', source: '어둠의 구름', capture: false }),
             delaySeconds: 7,
             alertText: (data, _matches, output) => {
@@ -366,7 +366,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '561[23]', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '561[23]', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '561[23]', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '561[23]', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '561[23]', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '561[23]', source: '어둠의 구름', capture: false }),
             delaySeconds: 12,
             alertText: (data, _matches, output) => {
@@ -384,7 +384,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '560[DE]', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '560[DE]', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '560[DE]', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '560[DE]', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '560[DE]', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '560[DE]', source: '어둠의 구름', capture: false }),
             preRun: (data) => {
                 if (data.role === 'tank')
@@ -408,7 +408,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '560[DE]', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '560[DE]', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '560[DE]', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '560[DE]', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '560[DE]', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '560[DE]', source: '어둠의 구름', capture: false }),
             delaySeconds: 8,
             alertText: (data, _matches, output) => {
@@ -426,7 +426,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '560[DE]', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '560[DE]', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '560[DE]', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '560[DE]', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '560[DE]', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '560[DE]', source: '어둠의 구름', capture: false }),
             delaySeconds: 12,
             alertText: (data, _matches, output) => {
@@ -444,7 +444,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '5601', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '5601', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '5601', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '5601', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '5601', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '5601', source: '어둠의 구름', capture: false }),
             // The fight goes Second Art -> Third Art -> Second Art, so we want
             // to have this cleaned up before the second Second Art Of Darkness
@@ -473,7 +473,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '5602', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '5602', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '5602', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '5602', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '5602', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '5602', source: '어둠의 구름', capture: false }),
             // The fight goes Second Art -> Third Art -> Second Art, so we want
             // to have this cleaned up before the second Second Art Of Darkness
@@ -504,7 +504,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.headMarker({ target: 'Wolke Der Dunkelheit' }),
             netRegexFr: NetRegexes.headMarker({ target: 'Nuage De Ténèbres' }),
             netRegexJa: NetRegexes.headMarker({ target: '暗闇の雲' }),
-            netRegexCn: NetRegexes.headMarker({ target: '暗黑之云' }),
+            netRegexCn: NetRegexes.headMarker({ target: '暗黑之雲' }),
             netRegexKo: NetRegexes.headMarker({ target: '어둠의 구름' }),
             condition: (data) => !data.artOfDarknessIdMap,
             run: (data, matches) => {
@@ -535,7 +535,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.headMarker({ target: 'Wolke Der Dunkelheit' }),
             netRegexFr: NetRegexes.headMarker({ target: 'Nuage De Ténèbres' }),
             netRegexJa: NetRegexes.headMarker({ target: '暗闇の雲' }),
-            netRegexCn: NetRegexes.headMarker({ target: '暗黑之云' }),
+            netRegexCn: NetRegexes.headMarker({ target: '暗黑之雲' }),
             netRegexKo: NetRegexes.headMarker({ target: '어둠의 구름' }),
             condition: (data, matches) => {
                 if (!data.artOfDarkness || !data.artOfDarknessIdMap)
@@ -555,7 +555,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.headMarker({ target: 'Wolke Der Dunkelheit' }),
             netRegexFr: NetRegexes.headMarker({ target: 'Nuage De Ténèbres' }),
             netRegexJa: NetRegexes.headMarker({ target: '暗闇の雲' }),
-            netRegexCn: NetRegexes.headMarker({ target: '暗黑之云' }),
+            netRegexCn: NetRegexes.headMarker({ target: '暗黑之雲' }),
             netRegexKo: NetRegexes.headMarker({ target: '어둠의 구름' }),
             condition: (data, matches) => {
                 if (!data.artOfDarkness || !data.artOfDarknessIdMap)
@@ -585,7 +585,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '55EF', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '55EF', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '55EF', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '55EF', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '55EF', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '55EF', source: '어둠의 구름', capture: false }),
             durationSeconds: 5,
             response: Responses.aoe(),
@@ -598,7 +598,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '55F0', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '55F0', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '55F0', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '55F0', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '55F0', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '55F0', source: '어둠의 구름', capture: false }),
             infoText: (_data, _matches, output) => output.text(),
             outputStrings: {
@@ -637,7 +637,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '560C', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '560C', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '560C', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '560C', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '560C', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '560C', source: '어둠의 구름', capture: false }),
             delaySeconds: 2,
             durationSeconds: 5,
@@ -650,7 +650,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '5A95', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '5A95', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '5A95', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '5A95', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '5A95', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '5A95', source: '어둠의 구름', capture: false }),
             durationSeconds: 8,
             alertText: (data, _matches, output) => {
@@ -670,7 +670,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '5A96', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '5A96', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '5A96', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '5A96', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '5A96', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '5A96', source: '어둠의 구름', capture: false }),
             durationSeconds: 8,
             alertText: (data, _matches, output) => {
@@ -690,7 +690,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '5629', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '5629', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '5629', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '5629', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '5629', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '5629', source: '어둠의 구름', capture: false }),
             // Let Curse of Darkness trigger resolve first
             delaySeconds: 2,
@@ -704,7 +704,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '55F1', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '55F1', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '55F1', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '55F1', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '55F1', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '55F1', source: '어둠의 구름', capture: false }),
             durationSeconds: 5,
             response: Responses.bigAoe('alert'),
@@ -717,7 +717,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '5603', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '5603', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '5603', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '5603', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '5603', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '5603', source: '어둠의 구름', capture: false }),
             infoText: (_data, _matches, output) => output.text(),
             run: (data) => {
@@ -743,7 +743,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '5604', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '5604', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '5604', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '5604', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '5604', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '5604', source: '어둠의 구름', capture: false }),
             infoText: (_data, _matches, output) => output.text(),
             run: (data) => {
@@ -769,7 +769,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '5620', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.startsUsing({ id: '5620', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.startsUsing({ id: '5620', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.startsUsing({ id: '5620', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.startsUsing({ id: '5620', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.startsUsing({ id: '5620', source: '어둠의 구름', capture: false }),
             delaySeconds: 6,
             durationSeconds: 6,
@@ -792,7 +792,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.ability({ id: '5019', source: 'Wolke Der Dunkelheit', capture: false }),
             netRegexFr: NetRegexes.ability({ id: '5019', source: 'Nuage De Ténèbres', capture: false }),
             netRegexJa: NetRegexes.ability({ id: '5019', source: '暗闇の雲', capture: false }),
-            netRegexCn: NetRegexes.ability({ id: '5019', source: '暗黑之云', capture: false }),
+            netRegexCn: NetRegexes.ability({ id: '5019', source: '暗黑之雲', capture: false }),
             netRegexKo: NetRegexes.ability({ id: '5019', source: '어둠의 구름', capture: false }),
             run: (data) => data.summon = true,
         },
@@ -803,7 +803,7 @@ Options.Triggers.push({
             netRegexDe: NetRegexes.startsUsing({ id: '561[EF]', source: 'Klon der Dunkelheit' }),
             netRegexFr: NetRegexes.startsUsing({ id: '561[EF]', source: 'Nuée de Ténèbres' }),
             netRegexJa: NetRegexes.startsUsing({ id: '561[EF]', source: '幻影の雲' }),
-            netRegexCn: NetRegexes.startsUsing({ id: '561[EF]', source: '幻影之云' }),
+            netRegexCn: NetRegexes.startsUsing({ id: '561[EF]', source: '幻影之雲' }),
             netRegexKo: NetRegexes.startsUsing({ id: '561[EF]', source: '환영의 구름' }),
             suppressSeconds: 1,
             promise: async (data) => {
@@ -812,7 +812,7 @@ Options.Triggers.push({
                     de: 'Wolke Der Dunkelheit',
                     fr: 'Nuage De Ténèbres',
                     ja: '暗闇の雲',
-                    cn: '暗黑之云',
+                    cn: '暗黑之雲',
                     ko: '어둠의 구름',
                 };
                 const bossData = await callOverlayHandler({
@@ -831,7 +831,7 @@ Options.Triggers.push({
                     de: 'Klon Der Dunkelheit',
                     fr: 'Nuée de Ténèbres',
                     ja: '幻影の雲',
-                    cn: '幻影之云',
+                    cn: '幻影之雲',
                     ko: '환영의 구름',
                 };
                 const cloneData = await callOverlayHandler({
@@ -949,8 +949,8 @@ Options.Triggers.push({
         {
             'locale': 'cn',
             'replaceSync': {
-                'Clone Of Darkness': '幻影之云',
-                'Cloud Of Darkness': '暗黑之云',
+                'Clone Of Darkness': '幻影之雲',
+                'Cloud Of Darkness': '暗黑之雲',
             },
             'replaceText': {
                 'The Third Art Of Darkness': '三重暗之战技',
